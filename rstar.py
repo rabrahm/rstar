@@ -13,11 +13,15 @@ from astroquery.vizier import Vizier
 import astropy.units as u
 import astropy.coordinates as coord
 import os 
-import pyfits
+from astropy.io import fits as pyfits
 
-def doenload():
-	os.system('wget https://phoenix.ens-lyon.fr/Grids/BT-Settl/CIFIST2011_2015/SPECTRA/BT-Settl_M-0.0a+0.0.tar')
-	os.system('tar -xvf BT-Settl_M-0.0a+0.0.tar')
+def download():
+	if os.access('bt-settl-cifist',os.F_OK) == False:
+		os.system('mkdir bt-settl-cifist')
+	for i in range(1,447):
+		os.system('wget http://svo2.cab.inta-csic.es/theory/newov2/ssap.php?model=bt-settl-cifist&fid='+str(i)+'&format=ascii')
+
+
 
 def download_cohelo():
 	if os.access('coelho_seds',os.F_OK) == False:
